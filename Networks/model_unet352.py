@@ -42,7 +42,7 @@ def get_model(img_size):
 
     pool_2 = layers.MaxPool3D(pool_size=2, strides=2, padding='same')(db2act2)
 
-    # Down Block 3
+    # bott Block
     db3conv1 = layers.Conv3D(128, 3, strides=1, padding='same')(pool_2)
     db3bn1 = layers.BatchNormalization()(db3conv1)
     db3act1 = layers.Activation("relu")(db3bn1)
@@ -51,40 +51,17 @@ def get_model(img_size):
     db3bn2 = layers.BatchNormalization()(db3conv2)
     db3act2 = layers.Activation("relu")(db3bn2)
 
-    pool_3 = layers.MaxPool3D(pool_size=2, strides=2, padding='same')(db3act2)
 
-    #Bottom Block
-    db4conv1 = layers.Conv3D(256,3, strides=1, padding='same')(pool_3)
-    db4bn1 = layers.BatchNormalization()(db4conv1)
-    db4act1 = layers.Activation("relu")(db4bn1)
-
-    db4conv2 = layers.Conv3D(256,3, strides=1, padding='same')(db4act1)
-    db4bn2 = layers.BatchNormalization()(db4conv2)
-    db4act2 = layers.Activation("relu")(db4bn2)
-
-    # Upsampling Block 3
-    up3up = layers.UpSampling3D(size=2)(db4act2)
-
-    up3conc = layers.concatenate([up3up, db3act2], axis=-1)
-
-    up3conv1 = layers.Conv3D(128, 3, strides=1, padding="same")(up3conc)
-    up3bn1 = layers.BatchNormalization()(up3conv1)
-    up3act1 = layers.Activation("relu")(up3bn1)
-
-    up3conv2 = layers.Conv3D(128, 3, strides=1, padding="same")(up3act1)
-    up3bn2 = layers.BatchNormalization()(up3conv2)
-    up3act2 = layers.Activation("relu")(up3bn2)
-
-    #Upsampling Block 2
-    up2up = layers.UpSampling3D(size=2)(up3act2)
+    # Upsampling Block 2
+    up2up = layers.UpSampling3D(size=2)(db3act2)
 
     up2conc = layers.concatenate([up2up, db2act2], axis=-1)
 
-    up2conv1 = layers.Conv3D(64,3,strides=1, padding="same")(up2conc)
+    up2conv1 = layers.Conv3D(64, 3, strides=1, padding="same")(up2conc)
     up2bn1 = layers.BatchNormalization()(up2conv1)
     up2act1 = layers.Activation("relu")(up2bn1)
 
-    up2conv2 = layers.Conv3D(64,3,strides=1, padding="same")(up2act1)
+    up2conv2 = layers.Conv3D(64, 3, strides=1, padding="same")(up2act1)
     up2bn2 = layers.BatchNormalization()(up2conv2)
     up2act2 = layers.Activation("relu")(up2bn2)
 
