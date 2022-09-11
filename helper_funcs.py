@@ -91,26 +91,27 @@ def padding(array, shape):
     return np.pad(array, pad_width=((a, aa), (b, bb), (0, 0)), mode='constant')
 
 def z_padding(input):
-    if input.shape[:2] == (256,256):
+    if input.shape[:2] == (256, 256):
         pass
     else:
-        input=input[:256,:256,:]
-    z_size = 128-input.shape[2]%128
-    pad = np.zeros(input.shape[0:2]+ (z_size,))
+        input = input[:256, :256, :]
+    z_size = 128-input.shape[2] % 128
+    pad = np.zeros(input.shape[0:2] + (z_size,))
     return np.append(input, pad, axis=-1)
 
+
 def aorta_id(labels_out):
-	labels_out=labels_out.reshape((1,-1))
-	labels_out=labels_out[0,:]
-	label=np.unique(labels_out)
-	hist, bin_edges=np.histogram(labels_out,bins=label)
-	hist=np.ndarray.tolist(hist)
-	hist_=hist
-	hist_=np.array(hist_)
-	hist.sort(reverse = True)
-	idx=(hist_==hist[1])
-	idx=idx+1-1
-	idx_=np.sum(idx*label[0:len(idx)])
-	print('idx',idx_)
-	return idx_
+    labels_out = labels_out.reshape((1,-1))
+    labels_out = labels_out[0,:]
+    label = np.unique(labels_out)
+    hist, bin_edges = np.histogram(labels_out, bins=label)
+    hist = np.ndarray.tolist(hist)
+    hist_ = hist
+    hist_ = np.array(hist_)
+    hist.sort(reverse=True)
+    idx = (hist_ == hist[1])
+    idx = idx+1-1
+    idx_ = np.sum(idx*label[0:len(idx)])
+    print('idx', idx_)
+    return idx_
 
