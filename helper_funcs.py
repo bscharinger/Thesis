@@ -36,6 +36,9 @@ def dice_coef_loss(y_true, y_pred):
     """
     return 1-dice_coef(y_true, y_pred)
 
+def neg_dice_coef(y_true, y_pred):
+    return -dice_coef(y_true, y_pred)*100000
+
 def aorta_cc3d(input):
     """
     Does a connected component analysis in an input image and outputs the second biggest
@@ -68,4 +71,46 @@ def resizing(data):
     resized_data = zoom(data,(256/a,256/b,128/c),order=2, mode='constant')
     return resized_data
 
+def padding(array, shape):
+    """
+    :param array: numpy array
+    :param xx: desired height
+    :param yy: desirex width
+    :return: padded array
+    """
+    xx, yy, zz = shape
+    he, wi, de = array.shape
+    print(array.shape)
+    a = (xx - he) // 2
+    aa = xx - a - he
+    print(a, aa)
+    b = (yy - wi) // 2
+    bb = yy - b - wi
+    print(b, bb)
+
+    return np.pad(array, pad_width=((a, aa), (b, bb), (0, 0)), mode='constant')
+
+def z_padding(input):
+    if input.shape[:2] == (256,256):
+        pass
+    else:
+        input=input[:256,:256,:]
+    z_size = 128-input.shape[2]%128
+    pad = np.zeros(input.shape[0:2]+ (z_size,))
+    return np.append(input, pad, axis=-1)
+
+def aorta_id(labels_out):
+	labels_out=labels_out.reshape((1,-1))
+	labels_out=labels_out[0,:]
+	label=np.unique(labels_out)
+	hist, bin_edges=np.histogram(labels_out,bins=label)
+	hist=np.ndarray.tolist(hist)
+	hist_=hist
+	hist_=np.array(hist_)
+	hist.sort(reverse = True)
+	idx=(hist_==hist[1])
+	idx=idx+1-1
+	idx_=np.sum(idx*label[0:len(idx)])
+	print('idx',idx_)
+	return idx_
 
