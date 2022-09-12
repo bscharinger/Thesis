@@ -7,3 +7,4 @@ This is the repository associated to the bachelor's thesis "Multicenter Aortic V
 - [data_gen.py](/data_gen.py): Contains the Keras Sequence-Class, used to feed the network with data.
 - [generate_patches.ipynb](/generate_patches.ipynb): This file contains the script to generate our input data patches from the CTA data
 - [helper_funcs.py](/helper_funcs.py): Contains different utility functions, like loss-functions, connected component anlysis, and functions for zero-padding.
+- [Networks](/Networks/): Contains the tested Neural Networks
