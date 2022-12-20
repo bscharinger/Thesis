@@ -2,6 +2,8 @@
 
 This is the repository associated to the bachelor's thesis "Multicenter Aortic Vessel Tree Extraction Using Deep Learning" of Bernhard Scharinger. Here you can find all Python scripts, notebooks and models used in the thesis.
 
+This work is going to be presented in the conference on Biomedical Applications in Molecular, Structural, and Functional Imaging, part of SPIE Medical Imaging: http://spie.org/MI106. You can find the submitted paper [here](/SPIE_Bernhard_Vessel_Tree_Multicenter_Extended.pdf)
+
 ## Purpose
 
 Pathologies of the cardiovascular system, like dissections and aneurysms, can be life-threatening and require
